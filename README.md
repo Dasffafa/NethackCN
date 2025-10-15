@@ -1,0 +1,2 @@
+# 本文件等待编写 本文件中将会有参与汉化时的配置方法，介绍工具，以及一些翻译标准，以及术语表。
+TODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODO
