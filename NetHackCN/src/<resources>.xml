@@ -1,0 +1,125 @@
+<resources>
+    <string name="app_name">DNethackModern</string>
+    <string name="button_esc">ESC</string>
+    <string name="play_mod_normal">正常模式</string>
+    <string name="play_mod_discover">探索模式</string>
+    <string name="player_select">选择要加载的存档：</string>
+    <string name="player_input">输入你的名字：</string>
+    <string name="player_add">新的游戏</string>
+    <string name="player_name_too_long">玩家名%s太长！</string>
+    <string name="player_name_exists">玩家%s已存在！</string>
+    <string name="ext_cmd_select">请选择扩展命令.</string>
+    <string name="message_history">消息历史.</string>
+    <string name="item_amount_select">选择%s的数量：</string>
+    <string name="number_select">请输入选择的数量：</string>
+    <string name="dialog_confirm">确认</string>
+    <string name="dialog_cancel">取消</string>
+    <string name="dialog_select_all">全选</string>
+    <string name="dialog_clear_all">全不选</string>
+    <string name="pos_key_question">你想做什么?</string>
+    <string name="pos_key_travel">移动</string>
+    <string name="pos_key_run">奔跑</string>
+    <string name="pos_key_look">查看</string>
+    <string name="key_dot_status_desc">key dot status image view</string>
+    <string name="menu_item_tile_desc">menu tile image</string>
+    <string name="run_mode_run">奔跑</string>
+    <string name="run_mode_walk">行走</string>
+
+    <string name="settings_title">设置</string>
+    <string name="activity_settings_title">SettingsActivity</string>
+    <string name="activity_option_edit_title">OptionEditActivity</string>
+    <string name="option_edit_save">保存</string>
+    <string name="option_edit_cancel">取消</string>
+    <string name="option_edit_title">选项</string>
+    <string name="option_menu_save">选项保存</string>
+    <string name="option_save_dialog_title">Save option</string>
+    <string name="option_save_dialog_msg">保存选项文件?</string>
+
+    <!-- Price identification -->
+    <string name="pride_id_title">价格鉴定</string>
+    <string name="pride_id_title_desc">显示价格鉴定按钮</string>
+    <string name="pride_id_charisma_label">魅力</string>
+    <string name="pride_id_price_label">价格</string>
+    <string name="pride_id_surcharge_label">宰客原因</string>
+    <string name="pride_id_type_label">物品类别</string>
+    <string name="pride_id_mode_label">搜索模式</string>
+    <string name="price_id_surcharge_none">无</string>
+    <string name="price_id_surcharge_tourist">15级以下的游客</string>
+    <string name="price_id_surcharge_shirt">最外面穿着T恤衫</string>
+    <string name="price_id_surcharge_cap">戴着蠢巫帽</string>
+    <string name="price_id_search">搜索</string>
+    <string name="price_id_mode_sell">售价</string>
+    <string name="price_id_mode_buy">购价</string>
+    <string name="price_id_mode_base">基础价格</string>
+    <string name="price_id_invalid_json">JSON格式无效.</string>
+
+    <!-- Preference Log -->
+    <string name="pref_log_header">Logs</string>
+    <string name="pref_log_dump">Dump log</string>
+    <string name="pref_log_dump_summery">The log that records game state at the end of a game.</string>
+    <string name="pref_log_dump_max_size">Dump log size</string>
+    <string name="pref_log_error">Error log</string>
+    <string name="pref_log_error_summery">Android crash log.</string>
+
+    <!-- Preference Sound -->
+    <string name="pref_sound_header">Sound</string>
+    <string name="pref_sound_user">User sound</string>
+    <string name="pref_sound_user_summery">Play user sound if permission granted.</string>
+    <string name="pref_sound_user_perm">Permission read audio</string>
+    <string name="pref_sound_user_perm_granted">Permission granted</string>
+    <string name="pref_sound_user_perm_not_granted">Permission not granted</string>
+    <string name="pref_sound_internal">Internal sound</string>
+    <string name="pref_sound_internal_summery">Play internal sound that NetHack provided.</string>
+
+    <!-- Preference Config -->
+    <string name="pref_option_header">Config</string>
+    <string name="pref_option_edit">Edit config file</string>
+
+    <!-- Preference PriceID -->
+    <string name="pref_price_id_header">价格鉴定</string>
+    <string name="pref_price_id_enable">启用价格鉴定按钮</string>
+
+    <!-- Preference Menu -->
+    <string name="pref_menu_header">Menu</string>
+    <string name="pref_menu_type">Menu type</string>
+    <string name="pref_menu_type_dialog">Dialog</string>
+    <string name="pref_menu_type_operate">Operation</string>
+
+    <!-- Preference Message -->
+    <string name="pref_message_header">Message</string>
+    <string name="pref_message_history_size">Size of message history</string>
+
+    <!-- Preference Map -->
+    <string name="pref_map_header">地图</string>
+    <string name="pref_map_tileset">图集</string>
+    <string name="pref_map_tile_default">默认</string>
+    <string name="pref_map_tile_nevanda">Nevanda</string>
+    <string name="pref_map_tile_ascii">Ascii</string>
+    <string name="pref_map_indicator">Show indicator</string>
+    <string name="pref_map_last_travel_indicator">Show last travel indicator</string>
+    <string name="pref_map_indicator_desc">Show map symbol indicator.</string>
+    <string name="pref_map_indicator_symbols">Indicator symbols</string>
+    <string name="pref_map_walk_range">Walk range</string>
+    <string name="pref_map_walk_range_desc">When the player moves beyond the range(%), the screen will move along with it.</string>
+    <string name="pref_map_travel_after_panned">Travel after map panned</string>
+    <string name="pref_map_travel_after_panned_desc">Travel when you touch the map, if the map has been translated and player not in walk range.</string>
+
+    <!-- Preference Keyboard -->
+    <string name="pref_keyboard_header">Keyboard</string>
+    <string name="pref_keyboard_vibrate">Keyboard vibration</string>
+    <string name="pref_keyboard_command_panel">Edit command panel</string>
+    <string name="pref_keyboard_command_panel_default">Setting S|Save #quit|Quit L20s|20s Keyboard|Abc\nd|Drop e|Eat :|Look ,|Pick .|Rest</string>
+
+    <!-- Preference Other -->
+    <string name="pref_other_header">Other</string>
+    <string name="pref_other_lock_view">Lock view</string>
+    <string name="pref_other_lock_view_desc">Always put the player in the center of the view.</string>
+    <string name="pref_other_immersive_mode">Immersive mode</string>
+    <string name="pref_other_immersive_mode_desc">Hide system ui.</string>
+    <string name="floating_button_desc">Floating Action Button</string>
+
+    <string name="permission_granted">Permission has been granted. </string>
+    <string name="permission_denied">Permission request was denied, you must manually grant permission. </string>
+    <string name="permission_denied_hint">NetHack need permission to play user sound.</string>
+
+</resources>
