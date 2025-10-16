@@ -736,7 +736,7 @@ drop(struct obj *obj)
             }
             onam_p = is_unpaid(obj) ? yobjnam(obj, (char *) 0) : doname(obj);
 
-            You("drop %s into %s.", onam_p, mnam_p);
+            You("把%s丢在%s内部.", onam_p, mnam_p);
         }
     } else {
         if ((obj->oclass == RING_CLASS || obj->otyp == MEAT_RING)
@@ -761,7 +761,7 @@ drop(struct obj *obj)
             return ECMD_TIME;
         }
         if (!IS_ALTAR(levl[u.ux][u.uy].typ) && flags.verbose)
-            You("drop %s.", doname(obj));
+            You("扔掉%s.", doname(obj));
     }
     obj->how_lost = LOST_DROPPED;
     dropx(obj);
@@ -915,14 +915,14 @@ doddrop(void)
     int result = ECMD_OK;
 
     if (!gi.invent) {
-        You("have nothing to drop.");
+        You("没有任何可扔掉的东西.");
         return ECMD_OK;
     }
     add_valid_menu_class(0); /* clear any classes already there */
     if (*u.ushops)
         sellobj_state(SELL_DELIBERATE);
     if (flags.menu_style != MENU_TRADITIONAL
-        || (result = ggetobj("drop", drop, 0, FALSE, (unsigned *) 0)) < -1)
+        || (result = ggetobj("扔掉", drop, 0, FALSE, (unsigned *) 0)) < -1)
         result = menu_drop(result);
     if (*u.ushops)
         sellobj_state(SELL_NORMAL);
@@ -963,7 +963,7 @@ menu_drop(int retry)
         all_categories = (retry == -2);
     } else if (flags.menu_style == MENU_FULL) {
         all_categories = FALSE;
-        n = query_category("Drop what type of items?", gi.invent,
+        n = query_category("扔掉什么类型的物品?", gi.invent,
                            (UNPAID_TYPES | ALL_TYPES | CHOOSE_ALL
                             | BUC_BLESSED | BUC_CURSED | BUC_UNCURSED
                             | BUC_UNKNOWN | JUSTPICKED | INCLUDE_VENOM),
@@ -996,7 +996,7 @@ menu_drop(int retry)
 
         all_categories = FALSE;
         /* Gather valid classes via traditional NetHack method */
-        i = ggetobj("drop", drop, 0, TRUE, &ggoresults);
+        i = ggetobj("扔掉", drop, 0, TRUE, &ggoresults);
         if (i == -2)
             all_categories = TRUE;
         if ((ggoresults & ALL_FINISHED) != 0) {
@@ -1040,7 +1040,7 @@ menu_drop(int retry)
                            & ECMD_TIME) != 0) ? 1 : 0;
     } else {
         /* should coordinate with perm invent, maybe not show worn items */
-        n = query_objlist("What would you like to drop?", &gi.invent,
+        n = query_objlist("你想要扔掉什么?", &gi.invent,
                           (USE_INVLET | INVORDER_SORT | INCLUDE_VENOM),
                           &pick_list, PICK_ANY,
                           all_categories ? allow_all : allow_category);
@@ -1083,10 +1083,10 @@ u_stuck_cannot_go(const char *updn)
 {
     if (u.ustuck) {
         if (u.uswallow || !sticks(gy.youmonst.data)) {
-            You("are %s, and cannot go %s.",
-                !u.uswallow ? "being held"
-                : digests(u.ustuck->data) ? "swallowed"
-                : "engulfed", updn);
+            You("正%s, 不能往%s走.",
+                !u.uswallow ? "被擒抱"
+                : digests(u.ustuck->data) ? "在怪物肚子里"
+                : "被怪物吞没", updn);
             return TRUE;
         } else {
             struct monst *mtmp = u.ustuck;
@@ -1141,7 +1141,7 @@ dodown(void)
             if (float_down(I_SPECIAL | TIMEOUT, W_ARTI)) {
                 return ECMD_TIME; /* came down, so moved */
             } else if (!HLevitation && !ELevitation) {
-                Your("latent levitation ceases.");
+                Your("潜在的飘浮停止了.");
                 return ECMD_TIME; /* did something, effectively moved */
             }
         }
@@ -1162,13 +1162,13 @@ dodown(void)
                 ladder_down = (glyph_to_cmap(glyph_at_uxuy) == S_dnladder);
         }
         if (Is_airlevel(&u.uz))
-            You("are floating in the %s.", surface(u.ux, u.uy));
+            You("正飘浮在%s上空.", surface(u.ux, u.uy));
         else if (Is_waterlevel(&u.uz))
-            You("are floating in %s.",
-                is_pool(u.ux, u.uy) ? "the water" : "a bubble of air");
+            You("漂浮在%s上.",
+                is_pool(u.ux, u.uy) ? "水面" : "水泡");
         else
-            floating_above(stairs_down ? "stairs"
-                           : ladder_down ? "ladder"
+            floating_above(stairs_down ? "楼梯"
+                           : ladder_down ? "梯子"
                              : surface(u.ux, u.uy));
         return ECMD_OK; /* didn't move */
     }
@@ -1176,9 +1176,9 @@ dodown(void)
     if (Upolyd && ceiling_hider(&mons[u.umonnum]) && u.uundetected) {
         u.uundetected = 0;
         if (Flying) { /* lurker above */
-            You("fly out of hiding.");
+            You("从躲藏物中飞出来.");
         } else { /* piercer */
-            You("drop to the %s.", surface(u.ux, u.uy));
+            You("坠落到%s上.", surface(u.ux, u.uy));
             if (is_pool_or_lava(u.ux, u.uy)) {
                 pooleffects(FALSE);
             } else {
@@ -1190,7 +1190,7 @@ dodown(void)
         return ECMD_TIME; /* came out of hiding; need '>' again to go down */
     }
 
-    if (u_stuck_cannot_go("down"))
+    if (u_stuck_cannot_go("下面"))
         return ECMD_TIME;
 
     if (!stairs_down && !ladder_down) {
@@ -1204,30 +1204,30 @@ dodown(void)
                 && uwep && is_pick(uwep)) {
                 return use_pick_axe2(uwep);
             } else {
-                You_cant("go down here%s.",
-                         (trap && trap->ttyp == VIBRATING_SQUARE) ? " yet"
+                You("%s不能从这里下去.",
+                         (trap && trap->ttyp == VIBRATING_SQUARE) ? "还"
                                                                   : "");
                 return ECMD_OK;
             }
         }
     }
     if (on_level(&valley_level, &u.uz) && !u.uevent.gehennom_entered) {
-        You("are standing at the gate to Gehennom.");
-        pline("Unspeakable cruelty and harm lurk down there.");
-        if (y_n("Are you sure you want to enter?") != 'y')
+        You("正站在葛汉诺姆的门口.");
+        pline("难以言喻的残忍和恐怖蛰伏于此.");
+        if (y_n("你确定要进入这里吗?") != 'y')
             return ECMD_OK;
         pline("So be it.");
         u.uevent.gehennom_entered = 1; /* don't ask again */
     }
 
     if (!next_to_u()) {
-        You("are held back by your pet!");
+        You("被你的宠物阻止了!");
         return ECMD_OK;
     }
 
     if (trap) {
-        const char *down_or_thru = trap->ttyp == HOLE ? "down" : "through";
-        const char *actn = u_locomotion("jump");
+        const char *down_or_thru = trap->ttyp == HOLE ? "下" : "过";
+        const char *actn = u_locomotion("跳");
 
         if (gy.youmonst.data->msize >= MZ_HUGE) {
             char qbuf[QBUFSZ];

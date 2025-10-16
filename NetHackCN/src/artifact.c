@@ -1068,8 +1068,8 @@ disp_artifact_discoveries(
         m = artidisco[i];
         otyp = artilist[m].otyp;
         algnstr = align_str(artilist[m].alignment);
-        if (!strcmp(algnstr, "unaligned"))
-            algnstr = "non-aligned";
+        if (!strcmp(algnstr, "无阵营的"))
+            algnstr = "无阵营的";
 
         Sprintf(buf, "  %s [%s %s]", artiname(m),
                 algnstr, simple_typename(otyp));

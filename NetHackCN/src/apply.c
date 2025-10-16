@@ -338,7 +338,7 @@ use_stethoscope(struct obj *obj)
     gn.notonhead = u.uswallow;
     if (u.usteed && u.dz > 0) {
         if (interference) {
-            pline("%s interferes.", Monnam(u.ustuck));
+            pline("%s挡着路.", Monnam(u.ustuck));
             mstatusline(u.ustuck);
         } else
             mstatusline(u.usteed);
@@ -347,7 +347,7 @@ use_stethoscope(struct obj *obj)
         mstatusline(u.ustuck);
         return res;
     } else if (u.uswallow && interference) {
-        pline("%s interferes.", Monnam(u.ustuck));
+        pline("%s挡着路.", Monnam(u.ustuck));
         mstatusline(u.ustuck);
         return res;
     } else if (u.dz) {
@@ -379,7 +379,7 @@ use_stethoscope(struct obj *obj)
     ry = u.uy + u.dy;
     if (!isok(rx, ry)) {
         Soundeffect(se_typing_noise, 100);
-        You_hear("微弱的打字声.");
+        You_hear("微弱的打字声. ");
         return ECMD_OK;
     }
     if ((mtmp = m_at(rx, ry)) != 0) {
@@ -426,11 +426,11 @@ use_stethoscope(struct obj *obj)
                 break;
             }
             seemimic(mtmp);
-            pline("%s %s %s really %s.",
-                  use_plural ? "Those" : "That", what,
-                  use_plural ? "are" : "is", mnm);
+            pline("%s%s确实是%s.",
+                  use_plural ? "那些" : "那个", what,
+                  , mnm);
         } else if (flags.verbose && !canspotmon(mtmp)) {
-            There("is %s there.", mnm);
+            There("有%s.", mnm);
         }
 
         mstatusline(mtmp);
@@ -463,7 +463,7 @@ use_stethoscope(struct obj *obj)
 }
 
 static const char whistle_str[] = "吹出%s哨声.",
-                  alt_whistle_str[] = "吹出%s, 尖锐的振动.";
+                  alt_whistle_str[] = "吹出%s, 剧烈振动.";
 
 staticfn void
 use_whistle(struct obj *obj)
@@ -716,10 +716,10 @@ m_unleash(struct monst *mtmp, boolean feedback)
 
     if (feedback) {
         if (canseemon(mtmp))
-            pline_mon(mtmp, "%s pulls free of %s leash!",
+            pline_mon(mtmp, "%s扯开了%s狗链!",
                       Monnam(mtmp), mhis(mtmp));
         else
-            Your("leash falls slack.");
+            Your("狗链松了下来.");
     }
     if ((otmp = get_mleash(mtmp)) != 0) {
         otmp->leashmon = 0;
@@ -1195,7 +1195,7 @@ use_bell(struct obj **optr)
                         && !On_stairs(u.ux, u.uy));
 
     Hero_playnotes(obj_to_instr(obj), "C", 100);
-    You("ring %s.", the(xname(obj)));
+    You("摇动%s.", the(xname(obj)));
 
     if (Underwater || (u.uswallow && ordinary)) {
         pline("但这声音低沉.");
@@ -2683,7 +2683,7 @@ use_stone(struct obj *tstone)
         return ECMD_CANCEL;
 
     if (obj == tstone && obj->quan == 1L) {
-        You_cant("rub %s on itself.", the(xname(obj)));
+        You_cant("用它自己来擦拭%s.", the(xname(obj)));
         return ECMD_OK;
     }
 
@@ -2705,7 +2705,7 @@ use_stone(struct obj *tstone)
         pline(scritch);
         return ECMD_TIME;
     } else if (Hallucination) {
-        pline("哦哇!朋友!分形!");
+        pline("哦哇! 朋友! 分形!");
         return ECMD_TIME;
     }
 
@@ -2745,7 +2745,7 @@ use_stone(struct obj *tstone)
     default:
         switch (objects[obj->otyp].oc_material) {
         case CLOTH:
-            pline("现在布料%s更加光滑了.", Tobjnam(tstone, "看起来"));
+            pline("现在布料%s更加光滑了. ", Tobjnam(tstone, "看起来"));
             return ECMD_TIME;
         case LIQUID:
             if (!obj->known) /* note: not "whetstone" */
@@ -2780,7 +2780,7 @@ use_stone(struct obj *tstone)
         break; /* default oclass */
     }
 
-    Sprintf(stonebuf, "石头%s", plur(tstone->quan));
+    Sprintf(stonebuf, "石头");
     if (do_scratch)
         You("磨出%s%s划痕到%s上.",
             streak_color ? streak_color : (const char *) "",
@@ -4343,7 +4343,7 @@ flip_through_book(struct obj *obj)
         pline("看起来是本有趣的读物.");
     } else {
         static const char *const fadeness[] = {
-            "仍然是崭新的",
+            "仍然崭新",
             "轻微褪色",
             "严重褪色",
             "极度褪色",
@@ -4351,7 +4351,7 @@ flip_through_book(struct obj *obj)
         };
         int findx = min(obj->spestudied, MAX_SPELL_STUDY);
 
-        pline("这本%s法术书中的墨水%s.",
+        pline("这本法术书中的%s墨水%s.",
               objects[obj->otyp].oc_magic ? "魔法" : "",
               fadeness[findx]);
     }
