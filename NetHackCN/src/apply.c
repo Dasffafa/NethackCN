@@ -73,7 +73,7 @@ staticfn int
 use_camera(struct obj *obj)
 {
     if (Underwater) {
-        pline("在水下使用你的相机,保修就不能用了.");
+        pline("在水下使用你的相机, 保修就不能用了. ");
         return ECMD_OK;
     }
     if (!getdir((char *) 0))
@@ -88,10 +88,10 @@ use_camera(struct obj *obj)
     if (obj->cursed && !rn2(2)) {
         (void) zapyourself(obj, TRUE);
     } else if (u.uswallow) {
-        You("给%s的%s做胃镜检查.", s_suffix(mon_nam(u.ustuck)),
+        You("给%s的%s做胃镜检查. ", s_suffix(mon_nam(u.ustuck)),
             mbodypart(u.ustuck, STOMACH));
     } else if (u.dz) {
-        You("拍摄了一张%s的照片.",
+        You("拍摄了一张%s的照片. ",
             (u.dz > 0) ? surface(u.ux, u.uy) : ceiling(u.ux, u.uy));
     } else if (!u.dx && !u.dy) {
         (void) zapyourself(obj, TRUE);
@@ -107,10 +107,10 @@ use_towel(struct obj *obj)
     boolean drying_feedback = (obj == uwep);
 
     if (!freehand()) {
-        You("没有空余的%s!", body_part(HAND));
+        You("没有空余的%s! ", body_part(HAND));
         return ECMD_OK;
     } else if (obj == ublindf) {
-        You("不能在穿戴着毛巾的时候使用它!");
+        You("不能在穿戴着毛巾的时候使用它! ");
         return ECMD_OK;
     } else if (obj->cursed) {
         long old;
@@ -128,7 +128,7 @@ use_towel(struct obj *obj)
             if (!ublindf) {
                 old = u.ucreamed;
                 u.ucreamed += rn1(10, 3);
-                pline("呸呸呸!  你的%s在毛巾上粘上了%s黏糊糊的东西!", body_part(FACE),
+                pline("呸呸呸! 你的%s在毛巾上粘上了%s黏糊糊的东西! ", body_part(FACE),
                       (old ? "更多" : "一些"));
                 make_blinded(BlindedTimeout + (long) u.ucreamed - old, TRUE);
             } else {
@@ -987,12 +987,12 @@ beautiful(void)
 
     res = ((cha >= 25) ? "超凡脱俗" 
            : (cha >= 19) ? "光彩照人" 
-             : (cha >= 16) ? ((poly_gender() == 1) ? "美丽" : "英俊")
-               : (cha >= 14) ? ((poly_gender() == 1) ? "迷人" : "和蔼可亲")
-                 : (cha >= 11) ? "可爱"
+             : (cha >= 16) ? ((poly_gender() == 1) ? "是美丽的" : "是英俊的")
+               : (cha >= 14) ? ((poly_gender() == 1) ? "是迷人的" : "和蔼可亲")
+                 : (cha >= 11) ? "很可爱"
                    : (cha >= 9) ? "相貌平平"
                      : (cha >= 6) ? "其貌不扬"
-                       : (cha >= 4) ? "丑陋"
+                       : (cha >= 4) ? "很丑陋"
                          : "面目可憎"); 
     return res;
 }
@@ -1016,23 +1016,23 @@ use_mirror(struct obj *obj)
     mirror = simpleonames(obj); /* "mirror" or "looking glass" */
     if (obj->cursed && !rn2(2)) {
         if (!Blind)
-            pline_The("%s起雾了,什么都照不出来!", mirror);
+            pline_The("%s起雾了, 什么都照不出来! ", mirror);
         else
             pline("%s", nothing_seems_to_happen);
         return ECMD_TIME;
     }
     if (!u.dx && !u.dy && !u.dz) {
         if (!useeit) {
-            You_cant("看见你%s的%s.", uvisage, body_part(FACE));
+            You_cant("看见你%s的%s. ", uvisage, body_part(FACE));
         } else {
             if (u.umonnum == PM_FLOATING_EYE) {
                 if (Free_action) {
-                    You("被你自己的视线短暂定住了.");
+                    You("被你自己的视线短暂定住了. ");
                 } else {
                     if (Hallucination)
-                        pline("嗷呦!那%s瞪回来了!", mirror);
+                        pline("呀! 那%s瞪回来了!", mirror);
                     else
-                        pline("呀!你被你自己定住了!");
+                        pline("呀! 你被你自己定住了!");
                     if (!Hallucination || !rn2(4)) {
                         nomul(-rnd(MAXULEV + 6 - u.ulevel));
                         gm.multi_reason = "凝视镜子";
@@ -1041,7 +1041,7 @@ use_mirror(struct obj *obj)
                 }
             } else if (is_vampire(gy.youmonst.data)
                        || is_vampshifter(&gy.youmonst)) {
-                You("在镜子里看不见你自己.");
+                You("没有镜像. ");
             } else if (u.umonnum == PM_UMBER_HULK) {
                 pline("哈? 那不像你!");
                 make_confused(HConfusion + d(3, 4), FALSE);
@@ -1054,7 +1054,7 @@ use_mirror(struct obj *obj)
             } else if (Upolyd) {
                 You("看起来像个%s.", an(pmname(&mons[u.umonnum], Ugender)));
             } else {
-                You("看起来像往常一样%s.", uvisage);
+                You("看起来和往常一样%s.", uvisage);
             }
         }
         return ECMD_TIME;
@@ -1069,7 +1069,7 @@ use_mirror(struct obj *obj)
         if (useeit)
             You("%s.",
                 Hallucination ? "给了这些丑陋的鱼一个补妆的机会."
-                              : "的镜子照出浑浊的水.");
+                              : "的镜子反射出浑浊的水.");
         return ECMD_TIME;
     }
     if (u.dz) {
@@ -1107,9 +1107,9 @@ use_mirror(struct obj *obj)
         /* infravision doesn't produce an image in the mirror */
     } else if ((how_seen & SEENMON) == MONSEEN_INFRAVIS) {
         if (vis) /* (redundant) */
-            pline("%s in the dark.",
-                  monverbself(mtmp, Monnam(mtmp), "are",
-                              "too far away to see"));
+            pline("%s.",
+                  monverbself(mtmp, Monnam(mtmp), "太远了",
+                              ", 在黑暗中很难看见"));
         /* some monsters do special things */
     } else if (mlet == S_VAMPIRE || mlet == S_GHOST || is_vampshifter(mtmp)) {
         if (vis)
@@ -1215,7 +1215,7 @@ use_bell(struct obj **optr)
                                NO_MINVENT | MM_NOMSG)) != 0) {
             You("召唤出%s!", a_monnam(mtmp));
             if (!obj_resists(obj, 93, 100)) {
-                pline("%s 裂成碎片!", Tobjnam(obj, ""));
+                pline("%s裂成碎片!", Tobjnam(obj, ""));
                 useup(obj);
                 *optr = 0;
             } else
@@ -1253,7 +1253,7 @@ use_bell(struct obj **optr)
             wakem = TRUE;
 
         } else if (invoking) {
-            pline("%s 一个令人不安的尖锐声响", Tobjnam(obj, "发出"));
+            pline("%s 一个令人不安的尖锐的声音...", Tobjnam(obj, "发出"));
             obj->age = svm.moves;
             learno = TRUE;
             wakem = TRUE;
@@ -1313,13 +1313,13 @@ use_candelabrum(struct obj *obj)
     if (obj->spe <= 0) {
         struct obj *otmp;
 
-        pline("这根%s没有%s.", xname(obj), s);
+        pline("这个%s上没有%s.", xname(obj), s);
         /* only output tip if candles are in inventory */
         for (otmp = gi.invent; otmp; otmp = otmp->nobj)
             if (Is_candle(otmp))
                 break;
         if (otmp)
-            pline("想要使用蜡烛,你应该用“使用”按钮而不是%s.",
+            pline("想要连接蜡烛,你应该用“使用”按钮而不是%s.",
                   xname(obj));
         return;
     }
@@ -1418,7 +1418,7 @@ use_candle(struct obj **optr)
         if (was_lamplit)
             end_burn(obj, TRUE);
 
-        You("添加%ld %s%s到 %s.", obj->quan, !otmp->spe ? "" : "更多的", s,
+        You("添加%ld%s%s到%s上.", obj->quan, !otmp->spe ? "" : "根更多的", s,
             the(xname(otmp)));
         if (!otmp->spe || otmp->age > obj->age)
             otmp->age = obj->age;
@@ -1466,7 +1466,7 @@ snuff_candle(struct obj *otmp)
 
         (void) get_obj_location(otmp, &x, &y, 0);
         if (otmp->where == OBJ_MINVENT ? cansee(x, y) : !Blind)
-            pline("%s%s蜡烛%s火焰%s熄灭了.", Shk_Your(buf, otmp),
+            pline("%s%s蜡烛%s火焰%s熄灭了. ", Shk_Your(buf, otmp),
                   (candle ? "" : "烛台的 "), (many ? "的" : "的"),
                   (many ? "" : ""));
         end_burn(otmp, TRUE);
@@ -1652,7 +1652,7 @@ use_lamp(struct obj *obj)
     }
     if (obj->cursed && !rn2(2)) {
         if ((obj->otyp == OIL_LAMP || obj->otyp == MAGIC_LAMP) && !rn2(3)) {
-            pline_The("lamp spills and covers your %s with oil.",
+            pline_The("油灯倒下了，在你的%s上泼满了油.",
                       fingers_or_gloves(TRUE));
             make_glib((int) (Glib & TIMEOUT) + d(2, 10));
         } else if (!Blind) {
@@ -1666,7 +1666,7 @@ use_lamp(struct obj *obj)
             check_unpaid(obj);
             pline("%s%s现在亮着.", Shk_Your(buf, obj), lamp);
         } else { /* candle(s) */
-            pline("%s 火焰%s%s", s_suffix(Yname2(obj)),
+            pline("%s火焰%s%s", s_suffix(Yname2(obj)),
                   otense(obj, "燃烧"), Blind ? "." : "得很明亮!");
             if (obj->unpaid && costly_spot(u.ux, u.uy)
                 && obj->age == 20L * (long) objects[obj->otyp].oc_cost) {
@@ -1819,7 +1819,7 @@ dorub(void)
             pline1(nothing_happens);
     } else if (obj->otyp == BRASS_LANTERN) {
         /* message from Adventure */
-        pline("擦拭电灯不是特别有意义.");
+        pline("擦拭灯笼不是特别有意义. ");
         pline("总之, 没有什么令人兴奋的事情发生.");
     } else
         pline1(nothing_happens);
@@ -2035,7 +2035,7 @@ jump(int magic) /* 0=Physical, otherwise skill level */
         legs_in_no_shape("跳", u.usteed != 0);
         return ECMD_OK;
     } else if (u.usteed && u.utrap) {
-        pline("%s 卡在陷阱里.", Monnam(u.usteed));
+        pline("%s卡在陷阱里.", Monnam(u.usteed));
         return ECMD_OK;
     }
 
@@ -2071,7 +2071,7 @@ jump(int magic) /* 0=Physical, otherwise skill level */
                 You("跳出了坑!");
                 break;
             case TT_WEB:
-                You("跳出蜘蛛网的时候,把蜘蛛网扯坏了!");
+                You("扯碎并且跳出蜘蛛网!");
                 deltrap(t_at(u.ux, u.uy));
                 break;
             case TT_LAVA:
@@ -2866,7 +2866,7 @@ use_trap(struct obj *otmp)
             chance = (rnl(10) > 3);
         else
             chance = (rnl(10) > 5);
-        You("的熟练度不足以让你从%s够到.", mon_nam(u.usteed));
+        You("的熟练度不足以让你从%s够到地面.", mon_nam(u.usteed));
         Sprintf(buf, "继续尝试设置%s?",
                 the(trapname(ttyp, FALSE)));
         if (y_n(buf) == 'y') {
@@ -2927,7 +2927,7 @@ set_trap(void)
                    (unsigned) (gt.trapinfo.force_bungle ? FORCEBUNGLE : 0));
     } else {
         /* this shouldn't happen */
-        Your("trap setting attempt fails.");
+        Your("设置陷阱的尝试失败了.");
     }
     useup(otmp);
     reset_trapset();

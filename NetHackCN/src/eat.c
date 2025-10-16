@@ -1669,7 +1669,7 @@ start_tin(struct obj *otmp)
         tmp = (uwep && uwep->blessed && uwep->otyp == TIN_OPENER) ? 0
                                                                   : rn2(2);
         if (!tmp)
-            mesg = "这个罐头像有魔法一样自动打开了!";
+            mesg = "这个罐头像魔法一样自动打开了!";
         else
             pline_The("罐头似乎很容易打开.");
     } else if (uwep) {
@@ -1868,7 +1868,7 @@ eatcorpse(struct obj *otmp)
     } else if ((rotted > 5L || (rotted > 3L && rn2(5))) && !Sick_resistance) {
         tp++;
         You_feel("身患%s病.", (Sick) ? "重" : "疾");
-        losehp(rnd(8), !glob ? "腐尸" : "团子", KILLED_BY_AN);
+        losehp(rnd(8), !glob ? "腐尸" : "腐烂的团子", KILLED_BY_AN);
     }
 
     /* delay is weight dependent */
@@ -1936,7 +1936,7 @@ eatcorpse(struct obj *otmp)
                   /* tiger reference is to TV ads for "Frosted Flakes",
                      breakfast cereal targeted at kids by "Tony the tiger" */
               Hallucination
-                 ? (yummy ? ((u.umonnum == PM_TIGER) ? "棒-棒-棒极了" : "gnarly")
+                 ? (yummy ? ((u.umonnum == PM_TIGER) ? "棒-棒-棒极了" : "很粗糙")
                           : palatable ? "是极好的" : "很恶心")
               : (yummy ? "很美味" : palatable ?
                  &palat_msg[1] : "很糟糕"),

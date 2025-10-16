@@ -59,14 +59,14 @@ moveloop_preamble(boolean resuming)
     /* side-effects from the real world */
     flags.moonphase = phase_of_the_moon();
     if (flags.moonphase == FULL_MOON) {
-        You("很幸运!  今晚满月.");
+        You("很幸运! 今晚满月. ");
         change_luck(1);
     } else if (flags.moonphase == NEW_MOON) {
-        pline("要小心!  今晚新月.");
+        pline("要小心! 今晚新月. ");
     }
     flags.friday13 = friday_13th();
     if (flags.friday13) {
-        pline("当心!  黑色星期五准没好事.");
+        pline("当心! 黑色星期五准没好事. ");
         change_luck(-1);
     }
 
@@ -233,7 +233,7 @@ moveloop_core(void)
                  */
                 if (svm.moves >= 1000000000L) {
                     display_nhwindow(WIN_MESSAGE, TRUE);
-                    urgent_pline("地牢向你的耐心投降.");
+                    urgent_pline("地牢屈服于你的耐心. ");
                     done(ESCAPED);
                 }
                 /* 'moves' is misnamed; it represents turns; hero_seq is
@@ -542,7 +542,7 @@ maybe_do_tutorial(void)
         assign_level(&u.ucamefrom, &u.uz);
         iflags.nofollowers = TRUE;
         schedule_goto(&sp->dlevel, UTOTYPE_NONE,
-                      "正在进入教程关.", (char *) 0);
+                      "正在进入教程关. ", (char *) 0);
         deferred_goto();
         vision_recalc(0);
         docrt();
@@ -578,7 +578,7 @@ regen_pw(int wtcap)
             u.uen = u.uenmax;
         disp.botl = TRUE;
         if (u.uen == u.uenmax)
-            interrupt_multi("你感觉充满了能量.");
+            interrupt_multi("你感觉充满了能量. ");
     }
 }
 
@@ -639,7 +639,7 @@ regen_hp(int wtcap)
     }
 
     if (reached_full)
-        interrupt_multi("你完全健康了.");
+        interrupt_multi("你完全健康了. ");
 }
 
 #undef U_CAN_REGEN
@@ -649,7 +649,7 @@ stop_occupation(void)
 {
     if (go.occupation) {
         if (!maybe_finished_meal(TRUE))
-            You("停止了%s.", go.occtxt);
+            You("停止%s. ", go.occtxt);
         go.occupation = (int (*)(void)) 0;
         disp.botl = TRUE; /* in case u.uhs changed */
         nomul(0);
@@ -809,12 +809,12 @@ welcome(boolean new_game) /* false => restoring an old game */
     /* skip "welcome back" if restoring a doomed character */
     if (!new_game && Upolyd && ugenocided()) {
         /* death via self-genocide is pending */
-        pline("你回到了地牢, 但你仍然感觉内心%s.", udeadinside());
+        pline("你回到了地牢, 但你仍然感觉内心%s. ", udeadinside());
         return;
     }
 
     if (Hallucination)
-        pline("NetHack 是在一群不死族现场观众面前拍摄的.");
+        pline("NetHack 是在一群不死族现场观众面前拍摄的烂片. ");
 
     /*
      * The "welcome back" message always describes your innate form
@@ -836,8 +836,8 @@ welcome(boolean new_game) /* false => restoring an old game */
             (currentgend && gu.urole.name.f) ? gu.urole.name.f
                                              : gu.urole.name.m);
 
-    pline(new_game ? "%s %s, 欢迎来到Nethack!  你是一位%s."
-                   : "%s %s, %s %s%s, 欢迎回到NetHack!",
+    pline(new_game ? "%s %s, 欢迎来到Nethack! 你是一位%s. "
+                   : "%s %s, %s %s%s, 欢迎回到NetHack! ",
           Hello((struct monst *) 0), svp.plname, buf, urace.adj,
           (currentgend && urole.name.f) ? urole.name.f : urole.name.m);
 
