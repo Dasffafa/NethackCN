@@ -599,8 +599,8 @@ wielding_corpse(
                     is_gloves(how) ? gloves_simple_name(how)
                     : strsubst(simpleonames(how), "set of ", ""));
         else
-            Strcpy(hbuf, "resistance timing out");
-        Snprintf(kbuf, sizeof kbuf, "%s while wielding %s",
+            Strcpy(hbuf, "石化抗性终止");
+        Snprintf(kbuf, sizeof kbuf, "%s当拿着%s",
                  hbuf, killer_xname(obj));
         instapetrify(kbuf);
         /* life-saved or got poly'd into a stone golem; can't continue
@@ -1074,7 +1074,7 @@ Amulet_off(void)
             if (Breathless)
                 Your("的%s不再被紧缚着!", body_part(NECK));
             else
-                You("能正常呼吸了！");
+                You("能正常呼吸了! ");
         }
         break;
     case AMULET_OF_RESTFUL_SLEEP:
@@ -1401,7 +1401,7 @@ Blindf_on(struct obj *otmp)
             /* this can only happen by putting on the Eyes of the Overworld;
                that shouldn't actually produce a permanent cure, but we
                can't let the "blind from birth" conduct remain intact */
-            pline("在你的生命中，你第一次得见光明！");
+            pline("在你的生命中, 你第一次得见光明! ");
             u.uroleplay.blind = FALSE;
         } else
             You("重见光明!");
@@ -1712,7 +1712,7 @@ armor_or_accessory_off(struct obj *obj)
         } else {
             Strcpy(why, ";它嵌在你的皮肤里面");
         }
-        You_cant("脱下那个，因为%s.", why);
+        You_cant("脱下那个, 因为%s.", why);
         return ECMD_OK;
     }
 
@@ -1920,7 +1920,7 @@ already_wearing(const char *cc)
 staticfn void
 already_wearing2(const char *cc1, const char *cc2)
 {
-    You_cant("穿上%s，因为你已经穿着%s了.", cc1, cc2);
+    You_cant("穿上%s, 因为你已经穿着%s了.", cc1, cc2);
 }
 
 /*
@@ -2015,7 +2015,7 @@ canwearobj(struct obj *otmp, long *mask, boolean noisy)
             /* break_armor() pushes boots off for centaurs,
                so don't let dowear() put them back on... */
             if (noisy)
-                pline("你的蹄子太多了，不能穿戴%s.",
+                pline("你的蹄子太多了, 不能穿戴%s.",
                       c_boots); /* makeplural(body_part(FOOT)) yields
                                    "rear hooves" which sounds odd */
             err++;
@@ -2052,7 +2052,7 @@ canwearobj(struct obj *otmp, long *mask, boolean noisy)
             /* prevent slippery bare fingers from transferring to
                gloved fingers */
             if (noisy)
-                Your("%s太滑了，%s戴不上去.",
+                Your("%s太滑了, %s戴不上去.",
                      fingers_or_gloves(FALSE), gloves_simple_name(otmp));
             err++;
         } else
@@ -2359,7 +2359,7 @@ doputon(void)
     if (uleft && uright && uamul && ublindf
         && uarm && uarmu && uarmc && uarmh && uarms && uarmg && uarmf) {
         /* 'P' message doesn't mention armor */
-        Your("%s%s 戴满了，并且你已经戴着一个护身符和 %s.",
+        Your("%s%s 戴满了, 并且你已经戴着一个护身符和 %s.",
              humanoid(gy.youmonst.data) ? "无名" : "",
              fingers_or_gloves(FALSE),
              (ublindf->otyp == LENSES) ? "一副眼镜" : "一个眼罩");

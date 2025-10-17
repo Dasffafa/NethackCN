@@ -67,8 +67,8 @@ staticfn int tin_ok(struct obj *);
 /* see hunger states in hack.h - texts used on bottom line
    Also used in botl.c and insight.c  */
 const char *const hu_stat[] = {
-    "Satiated", "        ", "Hungry  ", "Weak    ",
-    "Fainting", "Fainted ", "Starved "
+    "饱腹", "        ", "饥饿", "虚弱",
+    "即将昏厥", "昏厥", "饿毙"
 };
 
 static const struct victual_info zero_victual = { 0 };
@@ -3431,9 +3431,9 @@ newuhs(boolean incr)
         disp.botl = TRUE;
         bot();
         if ((Upolyd ? u.mh : u.uhp) < 1) {
-            You("die from hunger and exhaustion.");
+            You("死于饥饿和精疲力竭.");
             svk.killer.format = KILLED_BY;
-            Strcpy(svk.killer.name, "exhaustion");
+            Strcpy(svk.killer.name, "精疲力竭");
             done(STARVING);
             return;
         }
@@ -3512,8 +3512,8 @@ floorfood(
     char qbuf[QBUFSZ];
     char c;
     struct permonst *uptr = gy.youmonst.data;
-    boolean feeding = !strcmp(verb, "eat"),        /* corpsecheck==0 */
-            offering = !strcmp(verb, "sacrifice"); /* corpsecheck==1 */
+    boolean feeding = !strcmp(verb, "吃"),        /* corpsecheck==0 */
+            offering = !strcmp(verb, "献祭"); /* corpsecheck==1 */
 
     getobj_else = 0; /* haven't asked about floor food; is used to vary
                       * "you don't have anything [else] to eat" when
@@ -3537,8 +3537,8 @@ floorfood(
             /* If not already stuck in the trap, perhaps there should
                be a chance to becoming trapped?  Probably not, because
                then the trap would just get eaten on the _next_ turn... */
-            Sprintf(qbuf, "There is a bear trap here (%s); eat it?",
-                    u_in_beartrap ? "holding you" : "armed");
+            Sprintf(qbuf, "这里有个捕兽夹 (%s); 吃了它?",
+                    u_in_beartrap ? "正夹着你" : "安放好的");
             if ((c = yn_function(qbuf, ynqchars, 'n', TRUE)) == 'y') {
                 struct obj *beartrap;
 
@@ -3546,8 +3546,8 @@ floorfood(
                 if (u_in_beartrap)
                     reset_utrap(TRUE);
                 beartrap = mksobj(BEARTRAP, TRUE, FALSE);
-                Sprintf(qbuf,"You only manage to %s the bear trap.",
-                        u_in_beartrap ? "free yourself from" : "disarm");
+                Sprintf(qbuf,"你只能%s.",
+                        u_in_beartrap ? "把自己从捕兽夹里放出来" : "拆掉这个捕兽夹");
                 if (check_capacity(qbuf) && beartrap) {
                     obj_extract_self(beartrap);
                     dropy(beartrap);           /* put it on the floor */
@@ -3564,17 +3564,17 @@ floorfood(
             boolean nodig = (levl[u.ux][u.uy].wall_info & W_NONDIGGABLE) != 0;
 
             c = 'n';
-            Strcpy(qbuf, "There are iron bars here");
+            Strcpy(qbuf, "这里有铁栅栏");
             if (nodig || u.uhunger > 1500) {
-                pline("%s but you %s eat them.", qbuf,
-                      nodig ? "cannot" : "are too full to");
+                pline("%s但是你%s.", qbuf,
+                      nodig ? "吃不到它们" : "太饱了吃不下它们");
             } else {
                 Strcat(qbuf, (!svc.context.digging.chew
                               || !u_at(svc.context.digging.pos.x,
                                        svc.context.digging.pos.y)
                               || !on_level(&svc.context.digging.level, &u.uz))
-                              ? "; eat them?"
-                              : "; resume eating them?");
+                              ? "; 吃了它们?"
+                              : "; 继续吃它们?");
                 c = yn_function(qbuf, ynqchars, 'n', TRUE);
             }
             if (c == 'y')
@@ -3586,9 +3586,9 @@ floorfood(
         if (uptr != &mons[PM_RUST_MONSTER]
             && (gold = g_at(u.ux, u.uy)) != 0) {
             if (gold->quan == 1L)
-                Sprintf(qbuf, "There is 1 gold piece here; eat it?");
+                Sprintf(qbuf, "这里有1 金币; 吃了它?");
             else
-                Sprintf(qbuf, "There are %ld gold pieces here; eat them?",
+                Sprintf(qbuf, "这里有%ld 金币; 吃了它们?",
                         gold->quan);
             if ((c = yn_function(qbuf, ynqchars, 'n', TRUE)) == 'y') {
                 return gold;
@@ -3621,8 +3621,8 @@ floorfood(
             }
             /* "There is <an object> here; <verb> it?" or
                "There are <N objects> here; <verb> one?" */
-            Sprintf(qbuf, "There %s ", otense(otmp, "are"));
-            Sprintf(qsfx, " here; %s %s?", verb, one ? "it" : "one");
+            Sprintf(qbuf, "这里有");
+            Sprintf(qsfx, " ;%s%s?", verb, one ? "了它" : "一个");
             (void) safe_qbuf(qbuf, qbuf, qsfx, otmp, doname, ansimpleoname,
                              one ? something : (const char *) "things");
             if ((c = yn_function(qbuf, ynqchars, 'n', TRUE)) == 'y')
@@ -3637,9 +3637,9 @@ floorfood(
     /* We cannot use GETOBJ_PROMPT since we don't want a prompt in the case
        where nothing edible is being carried. */
     if (feeding) {
-        otmp = getobj("eat", eat_ok, GETOBJ_NOFLAGS);
+        otmp = getobj("吃", eat_ok, GETOBJ_NOFLAGS);
     } else if (offering) {
-        otmp = getobj("sacrifice", offer_ok, GETOBJ_NOFLAGS);
+        otmp = getobj("献祭", offer_ok, GETOBJ_NOFLAGS);
     } else if (corpsecheck == 2) {
         otmp = getobj(verb, tin_ok, GETOBJ_NOFLAGS);
     } else {
@@ -3648,7 +3648,7 @@ floorfood(
     }
     if (otmp && corpsecheck && !(offering && otmp->oclass == AMULET_CLASS)) {
         if (otmp->otyp != CORPSE || (corpsecheck == 2 && !tinnable(otmp))) {
-            You_cant("%s that!", verb);
+            You_cant("%s那个!", verb);
             otmp = (struct obj *) 0;
         }
     }
@@ -3668,7 +3668,7 @@ vomit(void) /* A good idea from David Neves */
     if (cantvomit(gy.youmonst.data)) {
         /* doesn't cure food poisoning; message assumes that we aren't
            dealing with some esoteric body_part() */
-        Your("jaw gapes convulsively.");
+        Your("下巴痉挛性地张开.");
     } else {
         if (Sick && (u.usick_type & SICK_VOMITABLE) != 0)
             make_sick(0L, (char *) 0, TRUE, SICK_VOMITABLE);
@@ -3676,7 +3676,7 @@ vomit(void) /* A good idea from David Neves */
            vomiting_dialog() gives a vomit message when its countdown
            reaches 0, but only if u.uhs < FAINTING (and !cantvomit()) */
         if (u.uhs >= FAINTING)
-            Your("%s heaves convulsively!", body_part(STOMACH));
+            Your("%s痉挛性地肿胀!", body_part(STOMACH));
         else
             spewed = TRUE;
     }
@@ -3686,7 +3686,7 @@ vomit(void) /* A good idea from David Neves */
        be immobilized for some other reason at the time vomit() is called */
     if (gm.multi >= -2) {
         nomul(-2);
-        gm.multi_reason = "vomiting";
+        gm.multi_reason = "呕吐的时候";
         gn.nomovemsg = You_can_move_again;
     }
 
@@ -3696,7 +3696,7 @@ vomit(void) /* A good idea from David Neves */
 
         /* currently, only yellow dragons can breathe acid */
         if (mattk) {
-            You("breathe acid on yourself..."); /* [why?] */
+            You("对自己吐出酸..."); /* [why?] */
             ubreatheu(mattk);
         }
         /* vomiting on an altar is, all things considered, rather impolite */
@@ -3707,7 +3707,7 @@ vomit(void) /* A good idea from David Neves */
             /* TODO: if there's a web here, destroy that too (before ice) */
             if (is_ice(u.ux, u.uy))
                 melt_ice(u.ux, u.uy,
-                         "Your stomach acid melts straight through the ice!");
+                         "你的胃酸直接融化了冰面!");
         }
     }
 }
@@ -3740,9 +3740,9 @@ consume_oeaten(struct obj *obj, int amt)
         int otyp = obj->otyp;
 
         if (otyp == CORPSE || otyp == EGG || otyp == TIN) {
-            Strcpy(itembuf, (otyp == CORPSE) ? "corpse"
-                            : (otyp == EGG) ? "egg"
-                              : (otyp == TIN) ? "tin" : "other?");
+            Strcpy(itembuf, (otyp == CORPSE) ? "尸体"
+                            : (otyp == EGG) ? "蛋"
+                              : (otyp == TIN) ? "罐头" : "其他?");
             Sprintf(eos(itembuf), " [%d]", obj->corpsenm);
         } else {
             Sprintf(itembuf, "%d", otyp);

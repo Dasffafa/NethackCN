@@ -277,7 +277,7 @@ kick_monster(struct monst *mon, coordxy x, coordxy y)
                                                       : (nolimbs(mon->data)
                                                          || slithy(mon->data))
                                                             ? "滑动"
-                                                            : "跳",
+                                                            : "跳起来",
                       clumsy ? "轻易地" : "敏捷地", clumsy ? "笨拙的" : "");
                 (void) passive(mon, uarmf, FALSE, 1, AT_KICK, FALSE);
                 return;
@@ -303,7 +303,7 @@ ghitm(struct monst *mtmp, struct obj *gold)
         /* too light to do real damage */
         if (canseemon(mtmp)) {
             pline_The("%s无害地%s%s.", xname(gold),
-                      otense(gold, "打了一下"), mon_nam(mtmp));
+                      otense(gold, "击中了"), mon_nam(mtmp));
             msg_given = TRUE;
         }
     } else {
@@ -359,7 +359,7 @@ ghitm(struct monst *mtmp, struct obj *gold)
             SetVoice(mtmp, 0, 80, 0);
             verbalize(umoney ? "放下其余的金币然后跟着我."
                       : hidden_gold(TRUE)
-                        ? "你还在什么地方藏着一些金币. 现在放下它们."
+                        ? "你还藏着一些金币. 现在放下它们."
                         : mtmp->mpeaceful
                                 ? "我会处理的; 请向前走."
                                 : "我拿走了; 现在走吧.");
@@ -985,7 +985,7 @@ kick_nondoor(coordxy x, coordxy y, int avrg_attrib)
             exercise(A_DEX, TRUE);
             if (gm.maploc->doormask & D_TRAPPED) {
                 gm.maploc->doormask = D_NODOOR;
-                b_trapped("door", FOOT);
+                b_trapped("门", FOOT);
             } else if (gm.maploc->doormask != D_NODOOR
                        && !(gm.maploc->doormask & D_LOCKED))
                 gm.maploc->doormask = D_ISOPEN;
@@ -1088,7 +1088,7 @@ kick_nondoor(coordxy x, coordxy y, int avrg_attrib)
         }
         /* make metal boots rust */
         if (uarmf && rn2(3))
-            if (water_damage(uarmf, "metal boots", TRUE) == ER_NOTHING) {
+            if (water_damage(uarmf, "铁靴子", TRUE) == ER_NOTHING) {
                 Your("靴子受潮了.");
                 /* could cause short-lived fumbling here */
             }

@@ -1245,7 +1245,7 @@ dog_move(
 
         if (info[chi] & ALLOW_U) {
             if (mtmp->mleashed) { /* play it safe */
-                pline("%s breaks loose of %s leash!", Monnam(mtmp),
+                pline("%s挣脱了%s狗链!", Monnam(mtmp),
                       mhis(mtmp));
                 m_unleash(mtmp, FALSE);
             }

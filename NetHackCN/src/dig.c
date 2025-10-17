@@ -353,7 +353,7 @@ dig(void)
             break;
         case 1:
             Soundeffect(se_bang_weapon_side, 100);
-            pline("巨响！你用%s的大头来攻击!",
+            pline("巨响！你用%s的宽边来攻击!",
                   the(xname(uwep)));
             wake_nearby(FALSE);
             break;

@@ -1389,7 +1389,7 @@ artifact_hit(
         if (realizes_damage)
             pline_The("烈焰剑刃%s%s%c",
                       !gs.spec_dbon_applies
-                          ? "击中了"
+                          ? "砍中了"
                           : (mdef->data == &mons[PM_WATER_ELEMENTAL])
                                 ? "蒸发了一部分"
                                 : "灼烧",
@@ -1407,7 +1407,7 @@ artifact_hit(
     if (attacks(AD_COLD, otmp)) {
         if (realizes_damage)
             pline_The("冰冷的剑刃%s%s%c",
-                      !gs.spec_dbon_applies ? "击中了" : "冷冻了", hittee,
+                      !gs.spec_dbon_applies ? "砍中了" : "冷冻了", hittee,
                       !gs.spec_dbon_applies ? '.' : '!');
         if (!rn2(4)) {
             int itemdmg = destroy_items(mdef, AD_COLD, *dmgptr);
@@ -1418,7 +1418,7 @@ artifact_hit(
     }
     if (attacks(AD_ELEC, otmp)) {
         if (realizes_damage)
-            pline_The("巨大的铁锤击中了%s%s%c",
+            pline_The("巨大的铁锤砸中了%s%s%c",
                       !gs.spec_dbon_applies ? "" : "! 闪电劈了一下",
                       hittee, !gs.spec_dbon_applies ? '.' : '!');
         if (gs.spec_dbon_applies)
